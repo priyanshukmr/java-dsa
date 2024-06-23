@@ -69,5 +69,27 @@ class Main {
         System.out.println(myStack.top());
         myStack.push(2023);
         System.out.println(myStack.top());
+        StackI<String> myOtherStack = new Stackk<String>(1);
+        myOtherStack.push("new-element");
+        myOtherStack.push("new-element-2");
    }
 }
+
+
+/*
+Pushed 2
+Pushed 3
+Pushed 100
+Stack already full
+Popped 100
+Popped 3
+Popped 2
+Stack already empty
+Stack already empty
+true
+null
+Pushed 2023
+2023
+Pushed new-element
+Stack already full
+*/
