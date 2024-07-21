@@ -19,7 +19,6 @@ class SegmentTree {
         update(2*i, pos, ss, mid, val);
         update(2*i+1, pos, mid+1, se, val);
         st[i] = Math.min(st[2*i], st[2*i+1]);
-        // System.out.println("i="+i+",st[i]="+st[i]);
     }
     
     static int query(int i, int ss, int se, int l, int r) {
