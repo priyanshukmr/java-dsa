@@ -52,7 +52,7 @@ class Main {
         long[] dijktra(int src) {
             long[] dist = new long[this.nodes+1];
             Arrays.fill(dist, Long.MAX_VALUE);
-            dist[1] = 0;
+            dist[src] = 0;
             PriorityQueue<DistNode> pq = new PriorityQueue<>();
             pq.add(new DistNode(0, src));
             
