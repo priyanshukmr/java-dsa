@@ -1,7 +1,6 @@
+// Problem: https://cses.fi/problemset/task/1671/
 import java.io.*;
 import java.util.*;
-
-
 
 class Main {
     
@@ -51,7 +50,8 @@ class Main {
 
         long[] dijktra(int src) {
             long[] dist = new long[this.nodes+1];
-            Arrays.fill(dist, Long.MAX_VALUE);
+            boolean[] vis = new boolean[this.nodes+1]; // optimisation for TLE
+            Arrays.fill(dist, 1000000000000000L);
             dist[src] = 0;
             PriorityQueue<DistNode> pq = new PriorityQueue<>();
             pq.add(new DistNode(0, src));
@@ -59,6 +59,8 @@ class Main {
             while(!pq.isEmpty()) {
                 DistNode closest = pq.remove();
                 int u = closest.dest;
+                if(vis[u]) continue;
+                vis[u] = true;
                 
                 for(Edge e: adj[u]) {
                     if(dist[u] + e.wgt < dist[e.dest]) {
