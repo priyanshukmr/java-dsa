@@ -1,3 +1,4 @@
+// point update, range min
 // Segment tree also works for non-invertible functions like min,max while fenwick does not
 
 import java.io.*;
