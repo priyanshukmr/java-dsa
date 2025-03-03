@@ -1,3 +1,7 @@
+/**
+https://cses.fi/problemset/task/1679
+**/
+
 import java.io.*;
 import java.util.*;
 
