@@ -1,7 +1,7 @@
 /**
 Give a matrix with each cell representing elevation, a path value is defined as maximum elevation traversed along that path.
 Movement is allowed in 4 directions. 
-Find the minimum possible path value for all possible paths from 0,0 to n-1, m-1.
+Find the minimum possible path value for all possible paths from 0,0 to m-1, n-1.
 
 Eg. Matrix:
 
