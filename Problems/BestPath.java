@@ -79,7 +79,6 @@ class Main {
         while(right-left>1) {
             initVisFalse();
             int mid = (left+right)/2;
-            System.out.println("mid="+mid);
             if(possiblePath(matrix, 0, 0, mid)) {
                 right=mid;
             }
