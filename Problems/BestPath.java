@@ -1,7 +1,10 @@
 /**
 Give a matrix with each cell representing elevation, a path value is defined as maximum elevation traversed along that path.
 Movement is allowed in 4 directions. 
-Find the minimum possible path value for all possible paths from 0,0 to m-1, n-1.
+Find the minimum possible path value for all possible paths from 0,0 to n-1, m-1.
+
+1 <= n,m <= 10^3
+1 <= elev <= 10^9
 
 Eg. Matrix:
 
@@ -27,8 +30,8 @@ O(nlogn)
 
 Approach-2:
 (Modified dijktras)
-use priority queue
-
+use priority queue to keep sorted distances of current nodes. Here distance means max elevation on the path. 
+Similar to dijktra, here we can finalise the cheapest node at each pq removal because all other paths can only increase elevation.
 
 
 **/
@@ -43,6 +46,7 @@ class Main {
     static int n = 4;
     static boolean[][] vis = new boolean[m][n];
     
+    // approach-1 
     static boolean valid(int r, int c) {
         return r>=0 && r<m && c>=0 && c<n;
     }
@@ -64,31 +68,72 @@ class Main {
     }
     
     static void initVisFalse() {
-        for(int i=0; i<m; i++) {
-            for(int j=0; j<n; j++) {
-                vis[i][j] = false;
-            }
-        }
+        for(boolean[] row: vis)
+            Arrays.fill(row, false);
     }
     
     static int binarySearchPath(int[][] matrix) {
         int left=1;
         int right=1000000000;
         
-        
         while(right-left>1) {
             initVisFalse();
             int mid = (left+right)/2;
-            if(possiblePath(matrix, 0, 0, mid)) {
+            if(possiblePath(matrix, 0, 0, mid)) 
                 right=mid;
-            }
-            else {
+            else 
                 left=mid;
-            }
         }
         if(possiblePath(matrix, 0, 0, left)) return left;
         return right;
     }
+    
+    // approach-2
+    static class Node implements Comparable<Node> {
+        int r;
+        int c;
+        int dist;
+        
+        Node(int r, int c, int dist) {
+            this.r=r;
+            this.c=c;
+            this.dist=dist;
+        }
+        
+        public int compareTo(Node other) {
+            return this.dist-other.dist;
+        }
+    }
+    
+    static int findMinPathUsingDijktra(int[][] matrix) {
+        int[][] dist = new int[m][n];
+        for(int[] row: dist)
+            Arrays.fill(row, Integer.MAX_VALUE);
+        dist[0][0] = matrix[0][0];
+        
+        PriorityQueue<Node> pq = new PriorityQueue<Node>();
+        pq.add(new Node(0, 0, dist[0][0]));
+        
+        while(!pq.isEmpty()) {
+            Node minNode = pq.remove();
+            int row = minNode.r;
+            int col = minNode.c;
+            
+            for(int dir=0; dir<4; dir++) {
+                int nextRow = row + dr[dir];
+                int nextCol = col + dc[dir];
+                if(valid(nextRow, nextCol))
+                
+                if(valid(nextRow, nextCol)
+                  && dist[nextRow][nextCol] > Math.max(dist[row][col], matrix[nextRow][nextCol])) {
+                    dist[nextRow][nextCol] = Math.max(dist[row][col], matrix[nextRow][nextCol]);
+                    pq.add(new Node(nextRow, nextCol, dist[nextRow][nextCol]));
+                }
+            }
+        }
+        return dist[m-1][n-1];
+    }
+    
  
     public static void main(String args[]) throws IOException {
         int[][] matrix = {
@@ -98,7 +143,8 @@ class Main {
             {100,   5,  100, 100},
             {1,   1,    1,   1}
         };
-        System.out.println(binarySearchPath(matrix));
+        System.out.println(binarySearchPath(matrix)==5 ? "PASSED" : "FAILED");
+        System.out.println(findMinPathUsingDijktra(matrix)==5 ? "PASSED" : "FAILED");
     }
     
     static class Reader { 
