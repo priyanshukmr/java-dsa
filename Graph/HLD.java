@@ -1,4 +1,9 @@
-// Problem: https://www.hackerrank.com/challenges/heavy-light-white-falcon/problem
+/*
+https://www.hackerrank.com/challenges/heavy-light-white-falcon/problem
+HLD finding max value on a path
+
+For path distance HLD see: https://leetcode.com/problems/shortest-path-in-a-weighted-tree/
+*/
 
 import java.io.*;
 import java.util.*;
@@ -108,7 +113,7 @@ public class Main {
         int[] chainIdx;
         SegTree[] root;
         
-        public void HLD_build(int n) {
+        private void HLD_build(int n) {
             chain[n].add(n);
             for(int i=0; i<chain[n].size(); i++) {
                 int u = chain[n].get(i);
@@ -123,6 +128,11 @@ public class Main {
                     }
             }
             root[n] = new SegTree(0, chain[n].size()-1);
+        }
+        
+        public void HLD_build() {
+            dfsBuild(0, 0, 0);
+            HLD_build(0);
         }
         
         public int HLD_query(int u, int v) {
@@ -158,9 +168,7 @@ public class Main {
         for(int i=0; i<n-1; i++) {
             graph.addEdge(r.nextInt(), r.nextInt());
         }
-        
-        graph.dfsBuild(0, 0, 0);
-        graph.HLD_build(0);
+        graph.HLD_build();
         StringBuilder out = new StringBuilder();
         
         while(q-->0) {
