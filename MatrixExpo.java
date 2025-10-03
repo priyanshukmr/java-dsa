@@ -27,3 +27,26 @@ static class Matrix {
         return result;
     }
 }
+
+
+// optimised mult impl for leveraging sequntial memory 
+
+public static long[][] mult(long[][] a, long[][] b) {
+    final int n = a.length;
+    long[][] prod = new long[n][n];
+
+    for (int i = 0; i < n; i++) {
+        long[] ai = a[i];
+        long[] ci = prod[i];           // write this row sequentially
+        for (int k = 0; k < n; k++) {
+            long aik = ai[k] % MOD;    // reuse this scalar across j
+            if (aik == 0) continue;    // small skip helps when sparse
+            long[] bk = b[k];          // read this row sequentially
+            for (int j = 0; j < n; j++) {
+                ci[j] = (ci[j] + (aik * (bk[j] % MOD)) % MOD) % MOD;
+            }
+        }
+    }
+    return prod;
+}
+
