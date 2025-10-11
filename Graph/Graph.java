@@ -8,7 +8,7 @@ class Main {
         ArrayList<Integer>[] adj;
         
         Graph(int _n) {
-            n = n;
+            n = _n;
             adj = new ArrayList[n+1];
             for(int i=0; i<=n; i++){
                 adj[i] = new ArrayList<Integer>();
