@@ -28,6 +28,19 @@ static class Matrix {
     }
 }
 
+// usage:
+
+static public void solve(Reader rd) throws IOException {
+    n = rd.nextLong();
+    long[][] base = new long[][]{
+            {1, 1},
+            {1, 0}
+    };
+    long[][] res = Matrix.exp(base, n);
+    out.append(res[1][0]);
+}
+
+
 
 // optimised mult impl for leveraging sequntial memory 
 
