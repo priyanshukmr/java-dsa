@@ -13,6 +13,7 @@ class Main {
             this.n = n;
             tree = new int[4*n+10];
         }
+        
         private void updateUtil(int i, int ss, int se, int pos, int val) {
             if(ss>pos || se<pos) {return;}
             if(ss==se) {
@@ -40,10 +41,11 @@ class Main {
             updateUtil(0, 0, n-1, pos, val);
         }
 
-        public  int query(int l, int r) {
+        public int query(int l, int r) {
             return queryUtil(0, 0, n-1, l, r);
         }
     }
+    
 
     public static void main(String args[]) throws IOException {
         Reader rd = new Reader();
@@ -74,6 +76,10 @@ class Main {
         }
         System.out.println(out);
     }
+
+
+
+    
 
     static class Reader {
         final private int BUFFER_SIZE = 1 << 16;
