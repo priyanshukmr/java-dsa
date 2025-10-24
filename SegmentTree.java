@@ -14,35 +14,35 @@ class Main {
             tree = new int[4*n+10];
         }
         
-        private void updateUtil(int i, int ss, int se, int pos, int val) {
+        private void update(int i, int ss, int se, int pos, int val) {
             if(ss>pos || se<pos) {return;}
             if(ss==se) {
                 tree[i]=val;
                 return;
             }
             int mid = (ss+se)>>1;
-            updateUtil(2*i+1, ss, mid, pos, val);
-            updateUtil(2*i+2, mid+1, se, pos, val);
+            update(2*i+1, ss, mid, pos, val);
+            update(2*i+2, mid+1, se, pos, val);
             tree[i] = Math.min(tree[2*i+1], tree[2*i+2]);
         }
 
-        private int queryUtil(int i, int ss, int se, int l, int r) {
+        private int query(int i, int ss, int se, int l, int r) {
             if(se<l || ss>r) return Integer.MAX_VALUE;
             if(ss>=l && se<=r) {
                 return tree[i];
             }
             int mid = (ss+se)/2;
-            int leftMin = queryUtil(2*i+1, ss, mid, l, r);
-            int rightMin = queryUtil(2*i+2, mid+1, se, l, r);
+            int leftMin = query(2*i+1, ss, mid, l, r);
+            int rightMin = query(2*i+2, mid+1, se, l, r);
             return Math.min(leftMin, rightMin);
         }
 
         public void update(int pos, int val) {
-            updateUtil(0, 0, n-1, pos, val);
+            update(0, 0, n-1, pos, val);
         }
 
         public int query(int l, int r) {
-            return queryUtil(0, 0, n-1, l, r);
+            return query(0, 0, n-1, l, r);
         }
     }
     
