@@ -51,7 +51,7 @@ class Main {
             return u;
         }
 
-        private void dfs(int u, int p, int d, boolean isCalculate) {
+        private void dfsSolve(int u, int p, int d, boolean isCalculate) {
             if (d > k) return;
 
             if (isCalculate) {
@@ -63,7 +63,7 @@ class Main {
 
             for (int v : adj[u]) {
                 if (!vis[v] && v != p) {
-                    dfs(v, u, d + 1, isCalculate);
+                    dfsSolve(v, u, d + 1, isCalculate);
                 }
             }
         }
@@ -77,8 +77,8 @@ class Main {
             maxD = 0;
             for (int v : adj[centroid]) {
                 if (!vis[v]) {
-                    dfs(v, centroid, 1, true);   // count pairs crossing through centroid
-                    dfs(v, centroid, 1, false);  // add this subtree's distances
+                    dfsSolve(v, centroid, 1, true);   // count pairs crossing through centroid
+                    dfsSolve(v, centroid, 1, false);  // add this subtree's distances
                 }
             }
             Arrays.fill(cnt, 0, maxD + 1, 0);
