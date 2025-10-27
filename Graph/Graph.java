@@ -11,6 +11,7 @@ class Main {
         Graph(int _n) {
             n = _n;
             adj = new ArrayList[n+1];
+            sub = new int[n+1];
             for(int i=0; i<=n; i++){
                 adj[i] = new ArrayList<Integer>();
             }
