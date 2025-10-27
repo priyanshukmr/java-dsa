@@ -4,9 +4,10 @@ import java.util.*;
 class Main {
     
     static class Graph{
-        int n;
-        ArrayList<Integer>[] adj;
-        
+        private int n;
+        private ArrayList<Integer>[] adj;
+        private int[] sub;
+
         Graph(int _n) {
             n = _n;
             adj = new ArrayList[n+1];
@@ -14,19 +15,21 @@ class Main {
                 adj[i] = new ArrayList<Integer>();
             }
         }
-        
-        void addEdge(int u, int v) {
+
+        public void addEdge(int u, int v) {
             adj[u].add(v);
             adj[v].add(u);
         }
-        
-        void dfs(int u, int par) {            
-            for(int v: adj[u]) {
-                if(v!=par) {
+
+        private void dfs(int u, int p) {
+            sub[u] = 1;
+            for (int v : adj[u]) {
+                if (v != p) {
                     dfs(v, u);
+                    sub[u] += sub[v];
                 }
             }
-        }            
+        }
     }
 
     public static void main(String args[]) throws IOException {
