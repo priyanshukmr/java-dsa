@@ -1,4 +1,5 @@
 // https://leetcode.com/problems/maximum-xor-of-subsequences/
+// https://cses.fi/problemset/result/15166097/
 
 class Solution {
 
@@ -19,6 +20,15 @@ class Solution {
             }
         }
         return basis;
+    }
+
+    private static int countXorSubsequences(int[] nums) {
+        int[] xorBasis = xorBasis(nums);
+        int ans = 1;
+        for(int i=0; i<BITS; i++) {
+            if(xorBasis[i]!=0) ans*=2;
+        }
+        return ans;
     }
  
     public int maxXorSubsequences(int[] nums) {
