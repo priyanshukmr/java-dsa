@@ -22,11 +22,11 @@ class Solution {
         return basis;
     }
 
-    private static int countXorSubsequences(int[] nums) {
-        int[] xorBasis = xorBasis(nums);
+    private int countXorSubsequences(int[] nums) {
+        int[] basis = xorBasis(nums);
         int ans = 1;
-        for(int i=0; i<BITS; i++) {
-            if(xorBasis[i]!=0) ans*=2;
+        for(int i=0; i<=BITS; i++) {
+            if(basis[i]!=0) ans*=2;
         }
         return ans;
     }
